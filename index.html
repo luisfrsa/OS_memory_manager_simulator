@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SO Simulator</title>
+	<script src="bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="js.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css.css">
+</head>
+<body>
+	<h1 class="text-center">SO Memory Simulator</h1>
+	<div class="row">
+		<div class="col-md-6">
+			<div  id='controler'>
+				<button class="btn btn-default">Criar</button>
+				<button class="btn btn-default">Suspender</button>
+				<button class="btn btn-default">Finalizar</button>
+			</div>
+			<table id="lista_processo" class="table table-stripped">
+				<tr>
+					<th>Cor</th>
+					<th>PID</th>
+					<th>Prioridade</th>
+					<th>Estado</th>
+					<th>Temp UCP</th>
+					<th>Frames</th>
+				</tr>
+				<tr>
+					<td>Cor</td>
+					<td>PID</td>
+					<td>Prioridade</td>
+					<td>Estado</td>
+					<td>Temp UCP</td>
+					<td>Frames</td>
+				</tr>
+			</table>
+		</div>
+		<div class="clear"></div>
+		<div class="col-md-6" id="memoria">
+			<div id="memoria_principal">
+				
+			</div>
+			<div id="memoria_virtual"></div>
+		</div>
+		<div class="col-md-6" id="processador"></div>
+	</div>
+</body>
+</html>
