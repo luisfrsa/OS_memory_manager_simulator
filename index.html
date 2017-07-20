@@ -4,46 +4,70 @@
 	<title>SO Simulator</title>
 	<script src="bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
 	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="bower_components/angular/angular.min.js" type="text/javascript"></script>
 	<script src="js.js" type="text/javascript"></script>
+	<script src="angular.js" type="text/javascript"></script>
 	<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css.css">
 </head>
-<body>
+<body ng-app="appMemory" ng-controller="memoryCtrl">
 	<h1 class="text-center">SO Memory Simulator</h1>
-	<div class="row">
-		<div class="col-md-6">
-			<div  id='controler'>
-				<button class="btn btn-default">Criar</button>
-				<button class="btn btn-default">Suspender</button>
-				<button class="btn btn-default">Finalizar</button>
+	<div class="container-fluid" >
+		<div class="row">
+			<div class="col-md-8">
+				<div  id='controler'>
+					<div class="row">
+						<div class="form-group col-md-3">
+							<label>Tipo de processo</label><br/>
+							<input type="radio" ng-model="process.tipo" value="CPU" id='cpu'>
+							<label for='cpu'>CPU</label>
+							<input type="radio" ng-model="process.tipo" value="IO" id='io'>
+							<label for='io'>IO</label>
+						</div>
+						<div class="form-group col-md-3">
+							<label for='frames'>Quantidade de Frames</label>
+							<input type="number" id='frames' ng-model="process.frames" class="form-control">
+						</div>
+						<div class="col-md-4">	
+							<br/><button class="btn btn-default" ng-click="addProcess(process)">Criar</button>
+						</div>
+					</div>
+				</div>
+				<table id="lista_processo" class="table table-stripped">
+					<tr>
+						<th>-</th>
+						<th>-</th>
+						<th>Id</th>
+						<th>Cor</th>
+						<th>Tipo</th>
+						<th>Estado</th>
+						<th>Frames</th>
+					</tr>
+					<tr ng-repeat="p in processes">
+						<td class="text-center botao">
+							<button ng-click="suspender(p)"  ng-show="p.ativo" class="btn btn-warning">Suspender</button>
+							<button ng-click="retomar(p)" ng-show="!p.ativo" class="btn btn-success">Retomar</button>
+						</td>
+						<td class="text-center botao">
+							<button ng-click="eliminar(p)" class="btn btn-danger">Eliminar</button>
+						</td>
+						<td>{{p.id}}</td>
+						<td><div class="cor" ng-class="p.cor"></div></td>
+						<td>{{p.tipo}}</td>
+						<td>{{p.estado}}</td>
+						<td>{{p.frames}}</td>
+					</tr>
+				</table>
 			</div>
-			<table id="lista_processo" class="table table-stripped">
-				<tr>
-					<th>Cor</th>
-					<th>PID</th>
-					<th>Prioridade</th>
-					<th>Estado</th>
-					<th>Temp UCP</th>
-					<th>Frames</th>
-				</tr>
-				<tr>
-					<td>Cor</td>
-					<td>PID</td>
-					<td>Prioridade</td>
-					<td>Estado</td>
-					<td>Temp UCP</td>
-					<td>Frames</td>
-				</tr>
-			</table>
-		</div>
-		<div class="clear"></div>
-		<div class="col-md-6" id="memoria">
-			<div id="memoria_principal">
-				
+			<div class="clear"></div>
+			<div class="col-md-4" id="memoria">
+				<h2>Memória principal</h2>
+				<div id="memoria_principal"></div>
+				<h2>Memória virtual</h2>
+				<div id="memoria_virtual"></div>
 			</div>
-			<div id="memoria_virtual"></div>
+			<div class="col-md-6" id="processador"></div>
 		</div>
-		<div class="col-md-6" id="processador"></div>
 	</div>
 </body>
 </html>

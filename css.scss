@@ -1,6 +1,30 @@
-.div_memoria{
-	width:9.9%;
-	height:20px;
-	border:solid 1px red;
-	float:left;
+#lista_processo{
+	th,td{
+		text-align:center;
+	}
+	td.botao{
+		width:100px;
+	}
+	.cor{
+		width:30px;
+		height:30px;
+		margin:auto;
+		&.yellow{ background: yellow;}&.red{ background: red;}&.aqua{ background: aqua;}&.aquamarine{ background: aquamarine;}&.beige{ background: beige;}&.black{ background: black;}&.blue{ background: blue;}&.blueviolet{ background: blueviolet;}&.brown{ background: brown;}&.burlywood{ background: burlywood;}&.cadetblue{ background: cadetblue;}&.chartreuse{ background: chartreuse;}&.chocolate{ background: chocolate;}&.coral{ background: coral;}&.cornflowerblue{ background: cornflowerblue;}&.crimson{ background: crimson;}&.cyan{ background: cyan;}&.darkblue{ background: darkblue;}&.darkcyan{ background: darkcyan;}&.darkgoldenrod{ background: darkgoldenrod;}&.darkgray{ background: darkgray;}&.darkgrey{ background: darkgrey;}&.darkgreen{ background: darkgreen;}&.darkkhaki{ background: darkkhaki;}&.darkmagenta{ background: darkmagenta;}&.darkolivegreen{ background: darkolivegreen;}&.darkorange	darksalmon{ background: darkorange	darksalmon;}&.darkslateblue{ background: darkslateblue;}&.darkslategrey{ background: darkslategrey;}&.darkturquoise{ background: darkturquoise;}&.darkviolet{ background: darkviolet;}&.deeppink{ background: deeppink;}&.dimgrey{ background: dimgrey;}&.dodgerblue{ background: dodgerblue;}&.firebrick{ background: firebrick;}&.floralwhite{ background: floralwhite;}&.forestgreen{ background: forestgreen;}&.fuchsia{ background: fuchsia;}&.gold{ background: gold;}&.green{ background: green;}&.greenyellow{ background: greenyellow;}&.hotpink{ background: hotpink;}&.indianred{ background: indianred;}&.indigo{ background: indigo;}&.khaki{ background: khaki;}&.lawngreen{ background: lawngreen;}&.lemonchiffon{ background: lemonchiffon;}
+	}
+}
+#memoria{
+	#memoria_principal,
+	#memoria_virtual{
+		border-left:solid 1px #000;
+		border-bottom:solid 1px #000;
+		float:left;
+		width:100%;
+		.div_memoria{
+			width:9.9%;
+			height:20px;
+			border-top:solid 1px #000;
+			border-right:solid 1px #000;
+			float:left;
+		} 
+	}
 } 
