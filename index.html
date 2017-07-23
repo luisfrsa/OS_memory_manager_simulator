@@ -26,48 +26,59 @@
 						</div>
 						<div class="form-group col-md-3">
 							<label for='frames'>Quantidade de Frames</label>
-							<input type="number" id='frames' ng-model="process.frames" class="form-control">
-						</div>
-						<div class="col-md-4">	
-							<br/><button class="btn btn-default" ng-click="addProcess(process)">Criar</button>
-						</div>
+							<input type="number" id='frames' max="5" min="0" ng-model="process.frames" class="form-control">
+						</div><div class="form-group col-md-3">
+						<label for='frames'>Prioridade</label>
+						<input type="number" id='frames' min="0" ng-model="process.prioridade" class="form-control">
+					</div>
+					<div class="col-md-4">	
+						<br/><button class="btn btn-default" ng-click="addProcess(process)">Criar</button>
 					</div>
 				</div>
-				<table id="lista_processo" class="table table-stripped">
-					<tr>
-						<th>-</th>
-						<th>-</th>
-						<th>Id</th>
-						<th>Cor</th>
-						<th>Tipo</th>
-						<th>Estado</th>
-						<th>Frames</th>
-					</tr>
-					<tr ng-repeat="p in processes">
-						<td class="text-center botao">
-							<button ng-click="suspender(p)"  ng-show="p.ativo" class="btn btn-warning">Suspender</button>
-							<button ng-click="retomar(p)" ng-show="!p.ativo" class="btn btn-success">Retomar</button>
-						</td>
-						<td class="text-center botao">
-							<button ng-click="eliminar(p)" class="btn btn-danger">Eliminar</button>
-						</td>
-						<td>{{p.id}}</td>
-						<td><div class="cor" ng-class="p.cor"></div></td>
-						<td>{{p.tipo}}</td>
-						<td>{{p.estado}}</td>
-						<td>{{p.frames}}</td>
-					</tr>
-				</table>
 			</div>
-			<div class="clear"></div>
-			<div class="col-md-4" id="memoria">
-				<h2>Memória principal</h2>
-				<div id="memoria_principal"></div>
-				<h2>Memória virtual</h2>
-				<div id="memoria_virtual"></div>
-			</div>
-			<div class="col-md-6" id="processador"></div>
+			<table id="lista_processo" class="table table-stripped">
+				<tr>
+					<th>-</th>
+					<th>-</th>
+					<th>Id</th>
+					<th>Cor</th>
+					<th>Tipo</th>
+					<th>Prioridade</th>
+					<th>Estado</th>
+					<th>Frames</th>
+				</tr>
+				<tr ng-repeat="p in processes">
+					<td class="text-center botao">
+						<button ng-click="suspender_retomar(p)"  ng-show="p.ativo" class="btn btn-warning">Suspender</button>
+						<button ng-click="suspender_retomar(p)" ng-show="!p.ativo" class="btn btn-success">Retomar</button>
+					</td>
+					<td class="text-center botao">
+						<button ng-click="eliminar(p)" class="btn btn-danger">Eliminar</button>
+					</td>
+					<td>{{p.id}}</td>
+					<td><div class="cor" ng-class="p.cor"></div></td>
+					<td>{{p.tipo}}</td>
+					<td>{{p.prioridade}}</td>
+					<td>{{p.estado}}</td>
+					<td>{{p.frames}}</td>
+				</tr>
+			</table>
 		</div>
+		<div class="clear"></div>
+		<div class="col-md-4" id="memoria">
+			<h2>Memória principal</h2>
+			<div id="memoria_principal">
+				<div ng-repeat="mp2 in memoria_principal.processes">
+					<div ng-repeat="mp in memoria_principal.processes">
+						<div class="div_memoria cor"  ng-class="mp.cor"></div>
+					</div>
+				</div>
+			</div>
+			<h2>Memória virtual</h2>
+			<div id="memoria_virtual"></div>
+		</div>
+		<div class="col-md-6" id="processador"></div>
 	</div>
+</div>
 </body>
 </html>
