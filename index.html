@@ -14,7 +14,7 @@
         <h1 class="text-center">SO Memory Simulator</h1>
         <div class="container-fluid" >
             <div class="row">
-                <input type="number" ng-model="clockCPU">
+                <input type="number" ng-model="CPU.clock">
 
                 <div id="CPU" class="col-md-8 col-md-offset-2">
                     <div id="execucao" class="col-md-3">
@@ -33,7 +33,7 @@
                         <div class="col-md-6">
                             <label>Suspensos</label>
                             <div id="lista_suspensos" >
-                                <div class="lista_prioridades" ng-repeat="p in listaSuspendidos ">
+                                <div class="lista_prioridades" ng-repeat="p in listaSuspendidos">
                                     <div class="cor cor_prioridade" ng-class="p.cor" > </div>
                                 </div>
                             </div>
@@ -66,7 +66,7 @@
                                 <input type="number" id='prioridade' min="0"  max="15" ng-model="process.prioridade" class="form-control">
                             </div>
                             <div class="col-md-4">	
-                                <br/><button class="btn btn-default" ng-click="addProcess(process)">Criar</button>
+                                <br/><button class="btn btn-default" ng-click="funcProcessos.addProcess(process)">Criar</button>
                             </div>
                         </div>
                     </div>
@@ -83,11 +83,11 @@
                         </tr>
                         <tr ng-repeat="p in processes">
                             <td class="text-center botao">
-                                <button ng-click="suspender_retomar(p)"  ng-show="p.ativo" class="btn btn-warning">Suspender</button>
-                                <button ng-click="suspender_retomar(p)" ng-show="!p.ativo" class="btn btn-success">Retomar</button>
+                                <button ng-click="funcProcessos.suspender_retomar(p)"  ng-show="p.ativo" class="btn btn-warning">Suspender</button>
+                                <button ng-click="funcProcessos.suspender_retomar(p)" ng-show="!p.ativo" class="btn btn-success">Retomar</button>
                             </td>
                             <td class="text-center botao">
-                                <button ng-click="eliminarClick(p)" class="btn btn-danger">Eliminar</button>
+                                <button ng-click="funcProcessos.eliminarClick(p)" class="btn btn-danger">Eliminar</button>
                             </td>
                             <td>{{p.id}}</td>
                             <td><div class="cor" ng-class="p.cor"></div></td>

@@ -11,7 +11,7 @@ var filesCSS = ([
 gulp.task('sass', function () {
     return gulp.src(filesCSS)
             .pipe(concat('./*.scss'))
-            .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+            .pipe(sass({outputStyle: 'compact'}).on('error', sass.logError))
             .pipe(rename('css.css'))
 			
             .pipe(gulp.dest(''))

@@ -25,18 +25,14 @@ app.controller("memoryCtrl", function ($scope) {
             }
         },
         addProcess: function (p) {
-            var num_frames = p.frames;
-            p.frames = 1;
             p.id = ++$scope.lastId;
-            for (var i = 0; i < num_frames; i++) {
-                p.ativo = true;
-                p.memoria_livre = false;
-                p.eliminar = false;
-                p.estado = 1;
-                p.cor = cor_memoria[$scope.lastId % cor_memoria.length];
-                $scope.memoria_principal.add(p);
-            }
+            p.ativo = true;
+            p.memoria_livre = false;
+            p.eliminar = false;
+            p.estado = 1;
+            p.cor = cor_memoria[$scope.lastId % cor_memoria.length];
             $scope.processes.push(p);
+            $scope.memoria_principal.add(p);
             $scope.CPU.addLista(p);
             $scope.funcProcessos.zeraProcess();
         },
@@ -49,15 +45,6 @@ app.controller("memoryCtrl", function ($scope) {
         size: 0,
         max_size: 20,
         processes: [],
-        init: function () {
-            for (var i = 0; i < this.max_size; i++) {
-                this.add({
-                    id: -1,
-                    frames: 1,
-                    memoria_livre: true,
-                });
-            }
-        },
         add: function (p) {
             var novoTam = $scope.memoria_principal.size += p.frames;
             if (novoTam <= $scope.memoria_principal.max_size) {
@@ -72,10 +59,9 @@ app.controller("memoryCtrl", function ($scope) {
             }
         }
     };
-    $scope.memoria_principal.init();
     $scope.memoria_secundaria = {
         size: 0,
-        max_size: 100,
+        max_size: 1000,
         processes: [],
     };
     $scope.listaPrioridadeCPU = [[]];
