@@ -6,6 +6,7 @@
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="bower_components/angular/angular.min.js" type="text/javascript"></script>
         <script src="js.js" type="text/javascript"></script>
+        <script src="Memoria.js" type="text/javascript"></script>
         <script src="angular.js" type="text/javascript"></script>
         <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="css.css">
@@ -104,17 +105,25 @@
                     <div id="memoria_principal">
                         <div ng-repeat="mp in memoria_principal.processes">
                             <div ng-repeat="value in ngRepeatNumber(mp.frames) track by $index">
-                                <div class="div_memoria cor"  ng-class="mp.cor"></div>
+                                <div class="div_memoria cor"  ng-class="mp.cor">{{mp.id}}</div>
                             </div>
                         </div>
+                    </div>
+                    <div>
+                        Size {{memoria_principal.size}}<br/>
+                        Max size{{memoria_principal.max_size}}
                     </div>
                     <h2>Memória virtual</h2>
                     <div id="memoria_virtual">
                         <div ng-repeat="ms in memoria_secundaria.processes">
                             <div ng-repeat="value in ngRepeatNumber(ms.frames) track by $index">
-                                <div class="div_memoria cor"  ng-class="ms.cor"></div>
+                                <div class="div_memoria cor"  ng-class="ms.cor">{{ms.id}}</div>
                             </div>
                         </div>
+                    </div>
+                    <div>
+                        Size {{memoria_secundaria.size}}<br/>
+                        Max size{{memoria_secundaria.max_size}}
                     </div>
                 </div>
                 <div class="col-md-6" id="processador"></div>

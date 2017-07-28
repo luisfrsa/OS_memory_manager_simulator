@@ -9,8 +9,14 @@ var cor_memoria = ['yellow', 'red', 'aqua', 'aquamarine', 'beige', 'black', 'blu
 
 
 var in_array = function (array, elem) {
+    if (typeof (array) === 'undefined' || typeof (elem) === 'undefined') {
+        log("in_array com undefined");
+        log(array);
+        log(elem);
+        return false;
+    }
     for (var i in array) {
-        if (array[i] === elem) {
+        if (array[i].id === elem.id) {
             return true;
         }
     }
@@ -25,4 +31,4 @@ var func_filtro = function (el, p) {
         return true;
     }
     return false;
-}
+};
