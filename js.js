@@ -23,6 +23,22 @@ var in_array = function (array, elem) {
     return false;
 };
 
+function get_index_by_id(array, elem) {
+    if (typeof (array) === 'undefined' || typeof (elem) === 'undefined') {
+        log("in_array com undefined");
+        log(array);
+        log(elem);
+        return false;
+    }
+    for (var i in array) {
+        if (array[i].id === elem.id) {
+            return parseInt(i);
+        }
+    }
+    return false;
+}
+;
+
 var func_filtro = function (el, p) {
     if (typeof (el) === 'undefined' || typeof (p) === 'undefined') {
         return false;

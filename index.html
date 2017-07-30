@@ -107,7 +107,7 @@
                 <div class="col-md-4" id="memoria">
                     <h2>Memória principal</h2>
                     <div id="memoria_principal">
-                        <div ng-repeat="mp in memoria_principal.processes">
+                        <div ng-repeat="mp in memoria_principal.processes | filter:isRightUndefined">
                             <div ng-repeat="value in ngRepeatNumber(mp.frames) track by $index">
                                 <div class="div_memoria cor"  ng-class="mp.cor">{{mp.id}}</div>
                             </div>

@@ -1,5 +1,8 @@
 var app = angular.module("appMemory", []);
-function log(p) {
+function log(p, str) {
+    if (str) {
+        console.log(p);
+    }
     console.log(p);
 }
 app.controller("memoryCtrl", function ($scope) {

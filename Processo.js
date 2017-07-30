@@ -34,7 +34,7 @@ var funcProcessos = function ($scope) {
             p.eliminar = false;
             p.estado = 1;
             p.cor = cor_memoria[$scope.lastId % cor_memoria.length];
-            $scope.memoria_principal.add(p);
+//            $scope.memoria_principal.add(p);
 //            }
             $scope.processes.push(p);
             $scope.CPU.addLista(p);

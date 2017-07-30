@@ -1,15 +1,29 @@
 var eliminar = function ($scope) {
-    return function(p){
+    return function (p) {
         $scope.processes = $scope.processes.filter(function (el) {
             return func_filtro(el, p);
             ;
         });
         if (in_array($scope.memoria_principal.processes, p)) {
-            $scope.memoria_principal.size -= p.frames;
-            $scope.memoria_principal.processes = $scope.memoria_principal.processes.filter(function (el) {
-                return func_filtro(el, p);
-                ;
-            });
+            var index_removido = get_index_by_id($scope.memoria_principal.processes, p);
+            $scope.memoria_principal.addVazio({init: index_removido, len: p.frames});
+//            $scope.memoria_principal.size -= p.frames;
+//            $scope.memoria_principal.processes = $scope.memoria_principal.processes.filter(function (el) {
+//                return func_filtro(el, p);
+//            });
+//            log($scope.memoria_principal.processes, "antes remover");
+            log($scope.memoria_principal.processes, "antes remover");
+            for (var i = 0; i < $scope.memoria_principal.processes.length; i++) {
+                if (typeof ($scope.memoria_principal.processes[i]) != 'undefined') {
+                    if ($scope.memoria_principal.processes[i].id == p.id) {
+//                        $scope.memoria_principal.processes.splice(i, 1);
+                        $scope.memoria_principal.processes[i] = [];
+                        break;
+                    }
+                }
+            }
+
+            log($scope.memoria_principal.processes, "depois remover");
         }
         if (in_array($scope.memoria_secundaria.processes, p)) {
             $scope.memoria_secundaria.size -= p.frames;
@@ -24,5 +38,4 @@ var eliminar = function ($scope) {
             });
         });
     };
-  
 }
