@@ -10,10 +10,10 @@ var funcProcessos = function ($scope) {
         suspender_retomar: function (p) {
             p.ativo = !p.ativo;
             if (p.ativo === true) {
-                $scope.CPU.addLista(p);
+//                $scope.CPU.addLista(p);
+                $scope.CPU.escalonamento[$scope.escalonamento].add(p);
                 $scope.listaSuspendidos = $scope.listaSuspendidos.filter(function (el) {
                     return func_filtro(el, p);
-                    ;
                 });
             }
         },
@@ -35,9 +35,10 @@ var funcProcessos = function ($scope) {
             p.estado = 1;
             p.cor = cor_memoria[$scope.lastId % cor_memoria.length];
 //            $scope.memoria_principal.add(p);
-//            }
             $scope.processes.push(p);
-            $scope.CPU.addLista(p);
+//            $scope.CPU.addLista(p);
+            $scope.CPU.escalonamento[$scope.escalonamento].add(p);
+
             $scope.funcProcessos.zeraProcess();
         },
         eliminarClick: function (p) {

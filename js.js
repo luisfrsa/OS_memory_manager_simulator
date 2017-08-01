@@ -48,3 +48,12 @@ var func_filtro = function (el, p) {
     }
     return false;
 };
+function existeKey(obj, key) {
+    if (typeof (obj) == 'undefined') {
+        return false;
+    }
+    if (key in obj) {
+        return true;
+    }
+    return false;
+}

@@ -16,45 +16,65 @@ var memoria_principal = function ($scope) {
 //            $scope.memoria_principal.vazios.push({init: 0, len: 20, end: 20});
         },
         add: function (p) {
-            var numFrames = p.frames;
-            var insert = $scope.memoria_principal.getEspacoVazio(numFrames);
-            if (insert !== false) {
-                log(insert, "busca espaco vazio-> ");
+            var insert = $scope.memoria_principal.getEspacoVazio(p.frames);
+            if (insert !== false) {//como ja foi verificado em CPU que há espaço, não é necessario tratar o else
                 $scope.memoria_principal.processes[insert.init] = new $scope.funcProcessos.newProcess(p);
-                log($scope.memoria_principal.processes);
-//                for (var i = 0; i < numFrames; i++) {
-//                    var processo_memoria = new $scope.funcProcessos.newProcess(p);
-////                    log(processo_memoria);
-//                    processo_memoria.frames = 1;
-//                    $scope.memoria_principal.processes[ indexInsert + i] = processo_memoria;
-//                }
-            } else {
-                $scope.memoria_principal.removePrimeiro(numFrames);
-//                $scope.memoria_principal.add(p);
-                //add secundaria
             }
         },
-        removePrimeiro: function (tamanho) {
+        removeFifo: function () {
+            var index = null;
+            var menor = null;
+            for (var i in $scope.memoria_principal.processes) {
+                if (typeof ($scope.memoria_principal.processes[i]) !== 'undefined') {
+                    if (menor == null || $scope.memoria_principal.processes[i].fifo < menor) {
+                        menor = $scope.memoria_principal.processes[i].fifo;
+                        index = i;
+                    }
+
+                }
+            }
+            var removed_process = $scope.memoria_principal.processes[index];
+            $scope.memoria_principal.addVazio({init: parseInt(index), len: $scope.memoria_principal.processes[index].frames});
+//                    $scope.memoria_principal.processes.splice(i, 1);
+            $scope.memoria_principal.processes[index] = {};
+            return removed_process;
+        },
+        removePrimeiro: function () {//substituido pelo fifo
             var indice = 0;
             for (var i in $scope.memoria_principal.processes) {
                 if (typeof ($scope.memoria_principal.processes[i]) !== 'undefined') {
-                    $scope.memoria_principal.vazios.push({});
-                    $scope.memoria_principal.processes.splice(i, 1);
-//                    return $scope.memoria_principal.processes[i];
-//sei la, ele vai remover mas estou com dificuldade em pegar o init
-//talvez varrer memoria vazios e processos paralelamente seja uma alternativa
+                    var removed_process = $scope.memoria_principal.processes[i];
+                    $scope.memoria_principal.addVazio({init: parseInt(i), len: $scope.memoria_principal.processes[i].frames});
+//                    $scope.memoria_principal.processes.splice(i, 1);
+                    $scope.memoria_principal.processes[i] = {};
+                    return removed_process;
                 }
             }
-            return false;//ver pois tamanho pode ter 10 processos de tam 2, e pedir para alocar tamanho 3, vai varrer tudo e nao achar nada, melhor solucao: while nao tiver tamanho,remove primeiro, e chama novamente a recursao, nao esquecer de dar merge de espaços vazios
-//nao precisa mostrar espaços vazios visualmente (branco), basta apenas quando for inserir processo, inserir entre p1 e p2, que simula a insercao no primeiro espaço vazio
+            return false;
         },
         addVazio: function (elem) {
-            log($scope.memoria_principal.vazios, "vazios antes add");
+//            log($scope.memoria_principal.vazios, "vazios antes add");
             $scope.memoria_principal.vazios.push(elem);
             $scope.memoria_principal.vazios.sort(function (a, b) {
                 return (a.init > b.init) ? 1 : ((b.init > a.init) ? -1 : 0);
             });
-            log($scope.memoria_principal.vazios, "vazios apos add");
+//            log($scope.memoria_principal.vazios, "vazios apos add");
+            $scope.memoria_principal.mergeEspacosVazios();
+        },
+        mergeEspacosVazios: function () {
+            for (var i = 0; i < $scope.memoria_principal.vazios.length; i++) {
+//                if (typeof ($scope.memoria_principal.vazios[i + 1] !== 'undefined') && typeof ($scope.memoria_principal.vazios[i + 1].init) !== 'undefined') {
+                if (existeKey($scope.memoria_principal.vazios[i + 1], 'init')) {
+//                    log(typeof ($scope.memoria_principal.vazios[i + 1]));
+//                    log(typeof ($scope.memoria_principal.vazios[i + 1].init));
+                    if (($scope.memoria_principal.vazios[i].init + $scope.memoria_principal.vazios[i].len) == $scope.memoria_principal.vazios[i + 1].init) {
+                        $scope.memoria_principal.vazios[i].len += $scope.memoria_principal.vazios[i + 1].len;
+                        $scope.memoria_principal.vazios.splice((i + 1), 1);
+                        $scope.memoria_principal.mergeEspacosVazios();
+                        break;
+                    }
+                }
+            }
         },
         existeEspacoVazio: function (tamanho) {
             for (var i in $scope.memoria_principal.vazios) {
@@ -75,12 +95,12 @@ var memoria_principal = function ($scope) {
                     if ($scope.memoria_principal.vazios[i].len == tamanho) {//ocupou todo espaço vazio
                         $scope.memoria_principal.vazios.splice(i, 1);
                     } else {
-                        log($scope.memoria_principal.vazios[i], "antes ");
+//                        log($scope.memoria_principal.vazios[i], "antes ");
                         $scope.memoria_principal.vazios[i] = {
                             init: $scope.memoria_principal.vazios[i].init + tamanho,
                             len: $scope.memoria_principal.vazios[i].len - tamanho
                         };
-                        log($scope.memoria_principal.vazios[i], "depois");
+//                        log($scope.memoria_principal.vazios[i], "depois");
                     }
                     return retorno;
                 }

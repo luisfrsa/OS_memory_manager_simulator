@@ -19,40 +19,54 @@
         <h1 class="text-center">SO Memory Simulator</h1>
         <div class="container-fluid" >
             <div class="row">
-                <input type="number" ng-model="CPU.clock">
+                <div class="col-md-2">
+                    <label>Clock CPU</label><br/>
+                    <input type="number" ng-model="CPU.clock">
+                </div>
+                <div class="col-md-2">
+                    <label>Tipo escalonamento</label><br/>
+                    <input type="radio" ng-model="escalonamento" value="round_robin" id="round_robin">
+                    <label for="round_robin">Round robin</label><br/>
+                    <input type="radio" ng-model="escalonamento" value="round_robin_prioridade" id="round_robin_prioridade">
+                    <label for="round_robin_prioridade">Round robin com prioridades</label><br/>
+                    <input type="radio" ng-model="escalonamento" value="com_prioridade" id="com_prioridade">
+                    <label for="com_prioridade">Com prioridades</label><br/>
+                    <input type="radio" ng-model="escalonamento" value="com_prioridade_dinamica" id="com_prioridade_dinamica">
+                    <label for="com_prioridade_dinamica">Com prioridades dinâmicas</label><br/>
+                    <input type="radio" ng-model="escalonamento" value="loteria" id="loteria">
+                    <label for="loteria">Escalonamento da Loteria</label>
 
+                </div>
+                {{listaPrioridadeCPU }}
                 <div id="CPU" class="col-md-8 col-md-offset-2">
-                    <div id="execucao" class="col-md-3">
-                        <div class="col-md-6">
-                            <label>CPU</label>
-                            <div class="box">
-                                <div class="circle cor cor_prioridade" ng-class="cpu.cor" ></div>
-                                <div class="bar"></div>
-                            </div>
-                            <div id="lista_cpu" >
-                                <div class="lista_prioridades" ng-repeat="lista in listaPrioridadeCPU track by $index">
-                                    <div class="cor cor_prioridade" ng-class="p.cor" ng-repeat="p in lista"> </div>
-                                </div>
-                            </div>
+                    <div id="execucao" class="col-md-2">
+                        <label>CPU</label>
+                        <div class="box">
+                            <div class="circle cor cor_prioridade" ng-class="cpu_process.cor" ></div>
+                            <div class="bar"></div>
                         </div>
-                        <div class="col-md-6">
-                            <label>Suspensos</label>
-                            <div id="lista_suspensos" >
-                                <div class="lista_prioridades" ng-repeat="p in listaSuspendidos">
-                                    <div class="cor cor_prioridade" ng-class="p.cor" > </div>
-                                </div>
+                        <div id="lista_cpu" >
+                            <div class="lista_prioridades" ng-repeat="lista in listaPrioridadeCPU track by $index">
+                                <div class="cor cor_prioridade" ng-class="p.cor" ng-repeat="p in lista"> </div>
                             </div>
                         </div>
                     </div>
-                    <div id="espera_io" class="col-md-3">
+                    <div class="col-md-2">
+                        <label>Suspensos</label>
+                        <div id="lista_suspensos" >
+                            <div class="lista_prioridades" ng-repeat="p in listaSuspendidos">
+                                <div class="cor cor_prioridade" ng-class="p.cor" > </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="espera_io" class="col-md-2">
+                        <label>IO</label>
                         <div class="box">
                             <div class="circle"></div>
                             <div class="bar"></div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-md-8">
                     <div  id='controler'>
                         <div class="row">
@@ -107,24 +121,25 @@
                 <div class="col-md-4" id="memoria">
                     <h2>Memória principal</h2>
                     <div id="memoria_principal">
-                        <div ng-repeat="mp in memoria_principal.processes | filter:isRightUndefined">
+                        <div ng-repeat="mp in memoria_principal.processes| filter:isRightUndefined">
                             <div ng-repeat="value in ngRepeatNumber(mp.frames) track by $index">
                                 <div class="div_memoria cor"  ng-class="mp.cor">{{mp.id}}</div>
                             </div>
                         </div>
                     </div>
                     <div>
-                        Size {{memoria_principal.size}}<br/>
-                        Max size{{memoria_principal.max_size}}
+                        {{memoria_principal.vazios}}<br/>
+
                     </div>
                     <h2>Memória virtual</h2>
                     <div id="memoria_virtual">
-                        <div ng-repeat="ms in memoria_secundaria.processes">
+                        <div ng-repeat="ms in memoria_secundaria.processes| filter:isRightUndefined">
                             <div ng-repeat="value in ngRepeatNumber(ms.frames) track by $index">
                                 <div class="div_memoria cor"  ng-class="ms.cor">{{ms.id}}</div>
                             </div>
                         </div>
                     </div>
+                    {{memoria_secundaria.vazios}}<br/>
                     <div>
                         Size {{memoria_secundaria.size}}<br/>
                         Max size{{memoria_secundaria.max_size}}

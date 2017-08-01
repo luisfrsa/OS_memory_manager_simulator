@@ -1,4 +1,8 @@
 var app = angular.module("appMemory", []);
+function al(p, str) {
+//    alert(str);
+//    alert(p);
+}
 function log(p, str) {
     if (str) {
         console.log(str);
@@ -27,6 +31,7 @@ function log(p, str) {
 }
 app.controller("memoryCtrl", function ($scope) {
     $scope.lastId = 0;
+    $scope.fifo = 0;
     $scope.processes = [];
     $scope.ngRepeatNumber = function (n) {
         return new Array(n);
@@ -39,7 +44,7 @@ app.controller("memoryCtrl", function ($scope) {
     $scope.memoria_principal = memoria_principal($scope);
 //    $scope.memoria_principal.init();
     $scope.memoria_secundaria = memoria_secundaria($scope);
-
+    $scope.escalonamento = 'round_robin';
 
 
     $scope.eliminar = eliminar($scope);
@@ -56,7 +61,7 @@ app.controller("memoryCtrl", function ($scope) {
      });
      */
     $scope.isRightUndefined = function (item) {
-      
+
         if (typeof (item) === 'undefined') {
             return false;
         }
