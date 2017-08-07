@@ -33,33 +33,23 @@ app.controller("memoryCtrl", function ($scope) {
     $scope.lastId = 0;
     $scope.fifo = 0;
     $scope.processes = [];
-    $scope.ngRepeatNumber = function (n) {
-        return new Array(n);
-    };
+
     $scope.listaPrioridadeCPU = [[]];
     $scope.listaSuspendidos = [];
+    $scope.listaIO = [];
     $scope.funcProcessos = funcProcessos($scope);
     $scope.funcProcessos.zeraProcess();
-//    $scope.memoria_principal = new Memoria(20);
     $scope.memoria_principal = memoria_principal($scope);
-//    $scope.memoria_principal.init();
     $scope.memoria_secundaria = memoria_secundaria($scope);
-    $scope.escalonamento = 'round_robin';
-
-
+    $scope.escalonamento = 'round_robin_prioridade';
     $scope.eliminar = eliminar($scope);
-
     $scope.CPU = CPU($scope);
     $scope.CPU.run();
 
 
-    /*
-     *      }).promise().done(function () {
-     $scope.$apply();
-     $scope.CPU.addLista($scope.cpu);
-     $scope.runCPU();
-     });
-     */
+    $scope.ngRepeatNumber = function (n) {
+        return new Array(n);
+    };
     $scope.isRightUndefined = function (item) {
 
         if (typeof (item) === 'undefined') {

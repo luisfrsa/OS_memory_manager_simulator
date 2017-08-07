@@ -1,14 +1,20 @@
-#CPU .box { border: solid 1px #222222; width: 30px; height: 30px; position: relative; }
+#CPU label { display: block; float: left; width: 100%; }
+
+#CPU .box { float: left; border: solid 1px #222222; width: 30px; height: 30px; position: relative; }
 
 #CPU .box .circle { width: 15px; height: 15px; border-radius: 50%; margin: 7px auto; float: none; }
 
 #CPU .bar { width: 0%; float: left; height: 2px; background: red; position: absolute; bottom: 0px; left: 0px; }
 
-#CPU #lista_cpu, #CPU #lista_suspensos { float: left; }
+#CPU #lista_cpu, #CPU #lista_IO, #CPU #lista_suspensos { float: left; }
 
-#CPU #lista_cpu .lista_prioridades, #CPU #lista_suspensos .lista_prioridades { height: 30px; float: left; /*            border-bottom:solid 1px $cor-borda; border-top:solid 1px $cor-borda; border-left:solid 1px $cor-borda; border-right:solid 1px $cor-borda;*/ }
+#CPU #lista_cpu .lista_prioridades, #CPU #lista_IO .lista_prioridades, #CPU #lista_suspensos .lista_prioridades { height: 30px; float: left; }
 
-#CPU .cor_prioridade { float: left; width: 10px; height: 28px; }
+#CPU #lista_cpu { min-height: 50px; }
+
+#CPU #lista_cpu .lista_prioridades { float: left; overflow: hidden; position: relative; height: 100%; margin-left: 5px; margin-right: 10px; }
+
+#CPU .cor_prioridade, #CPU .cor_IO { float: left; width: 10px; height: 28px; }
 
 #lista_processo th, #lista_processo td { text-align: center; }
 
@@ -16,7 +22,7 @@
 
 #lista_processo .cor { width: 30px; height: 30px; margin: auto; }
 
-.cor.vazio { background: #ffffff !important; }
+.cor.vazio { background: #ffffff; }
 
 .cor.yellow { background: yellow; }
 

@@ -232,7 +232,6 @@ app.controller("memoryCtrl", function ($scope) {
     $scope.CPU = {
         clock: 1000,
         pop: function () {
-//            log($scope.listaPrioridadeCPU);
             for (var i = $scope.listaPrioridadeCPU.length - 1; i >= 0; i--) {
                 if ($scope.listaPrioridadeCPU[i].length > 0) {
                     var ret = $scope.listaPrioridadeCPU[i].shift();

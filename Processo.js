@@ -11,12 +11,22 @@ var funcProcessos = function ($scope) {
             p.ativo = !p.ativo;
             if (p.ativo === true) {
 //                $scope.CPU.addLista(p);
-                $scope.CPU.escalonamento[$scope.escalonamento].add(p);
+                $scope.CPU.escalonamento.add(p);
                 $scope.listaSuspendidos = $scope.listaSuspendidos.filter(function (el) {
                     return func_filtro(el, p);
                 });
             }
         },
+        addIO: function (p) {
+            $scope.listaIO.push(p);
+            setTimeout(function () {
+                $scope.listaIO = $scope.listaIO.filter(function (el) {
+                    return func_filtro(el, p);
+                });
+                $scope.CPU.escalonamento.add(p);
+            }, 7000);
+        }
+        ,
         newProcess: function (p) {
             var novo = {};
             for (var i in p) {
@@ -26,18 +36,15 @@ var funcProcessos = function ($scope) {
         },
         addProcess: function (p) {
             var num_frames = p.frames;
-//            p.frames = 1;
             p.id = ++$scope.lastId;
-//            for (var i = 0; i < num_frames; i++) {
+            p.new = true;
             p.ativo = true;
             p.memoria_livre = false;
             p.eliminar = false;
             p.estado = 1;
             p.cor = cor_memoria[$scope.lastId % cor_memoria.length];
-//            $scope.memoria_principal.add(p);
             $scope.processes.push(p);
-//            $scope.CPU.addLista(p);
-            $scope.CPU.escalonamento[$scope.escalonamento].add(p);
+            $scope.CPU.escalonamento.add(p);
 
             $scope.funcProcessos.zeraProcess();
         },
