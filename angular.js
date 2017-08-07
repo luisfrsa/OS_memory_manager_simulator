@@ -41,7 +41,7 @@ app.controller("memoryCtrl", function ($scope) {
     $scope.funcProcessos.zeraProcess();
     $scope.memoria_principal = memoria_principal($scope);
     $scope.memoria_secundaria = memoria_secundaria($scope);
-    $scope.escalonamento = 'round_robin_prioridade';
+    $scope.escalonamento = 'round_robin';
     $scope.eliminar = eliminar($scope);
     $scope.CPU = CPU($scope);
     $scope.CPU.run();
